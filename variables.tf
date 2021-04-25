@@ -1,106 +1,96 @@
-################################################################################
-################################################################################
-################################################################################
-###                                                                          ###
-### Name: terraform-vsphere-vcsa                                             ###
-### Description: [Terraform] Module to create and deploy VMware VCSA         ###
-### Last Modified: fparry(2020-09-04T11:12:56-04:00)                         ###
-### License: MIT (See LICENSE.txt in the root of this repository for more    ###
-###   information.)                                                          ###
-###                                                                          ###
-################################################################################
-################################################################################
-################################################################################
-
-variable "vcbuild_esxihostname" {
-  description = "ESXi hostname to deploy VCSA"
+variable "esxi_hostname" {
+  description = "ESXi hostname of the target host"
 }
 
-variable "vcbuild_esxiusername" {
-  description = "ESXi username to deploy VCSA"
+variable "esxi_username" {
+  description = "Username for the account on the target ESXi host"
   default     = "root"
 }
 
-variable "vcbuild_sso_domain_name" {
-  description = "SSO domain name"
+variable "esxi_password" {
+  description = "Password for the account on the target host"
 }
 
-variable "vcbuild_deployment_network" {
-  description = "Network to deploy VCSA"
+variable "vcsa_network" {
+  description = "Target vCenter appliance network"
 }
 
-variable "vcbuild_thin_disk_mode" {
-  description = "Use thin disks for VCSA?  Valid options are 'true' or 'false' "
+variable "vcsa_datastore" {
+  description = "Target datastore for the vCenter appliance"
+}
+
+variable "disk_mode" {
   default     = true
+  description = "Thin provisioned disk mode"
 }
 
-variable "vcbuild_deployment_option" {
-  description = "VCSA sizing.  Valid options are 'tiny', 'small', 'medium', 'large', 'x-large' "
+variable "deployment_size" {
   default     = "small"
+  description = "vCenter server deployment size"
 }
 
-variable "vcbuild_ip_family" {
-  description = "ipv4 or ipv6"
+variable "vcenter_prefix" {
+ description = "vCenter server subnet prefix"
+ default = "24"
+}
+
+variable "vcenter_hostname" {
+  description = "Hostname for the vCenter Server Applaince"
+}
+
+variable "ip_family" {
   default     = "ipv4"
+  description = "Setting for ipv4 or ipv6"
 }
 
-variable "vcbuild_network_mode" {
-  description = "static or dhcp"
+variable "network_mode" {
+  default     = "static"
+  description = "Static or DHCP configuration for the network mode"
 }
 
-variable "vcbuild_datastore" {
-  description = "Datastore to deploy VCSA"
+variable "vcenter_ip" {
+ description = "vCenter server IP Address"
 }
 
-variable "vcbuild_vchostname" {
-  description = "vCenter host name"
+variable "vcenter_gateway" {
+ description = "Default gateway for vCenter server"
 }
 
-variable "vcbuild_vcrootpassword" {
-  description = "Root password for vcenter server"
+variable "vcenter_dns" {
+  description = "vCenter Server upstream DNS servers"
+
 }
 
-variable "vcbuild_vcssopassword" {
-  description = "SSO password for vcenter server"
+variable "vcenter_root_password" {
+ description = "vCenter server root password"
 }
 
-variable "vcbuild_ntp_servers" {
-  description = "NTP servers"
-  default     = "time.nist.gov"
+variable "vcenter_ntp_server" {
+ description = "vCenter server NTP server"
 }
 
-variable "vcbuild_ssh_enable" {
-  description = "Enable SSH?  'true' or 'false' "
-  default     = true
+variable "vcenter_ssh_enabled" {
+ description = "vCenter SSH setting"
 }
 
-variable "vcbuild_esxipassword" {
-  description = "esxi password"
+variable "vcenter_sso_password" {
+  description = "vCenter server SSO password"
+  default = "VMware123!"
 }
 
-variable "vcbuild_vcip" {
-  description = "ip address"
+variable "vcenter_sso_domain" {
+ description = "vCenter server SSO domain"
+ default = "vsphere.local"
 }
 
-variable "vcbuild_dnsserver" {
-  description = "dns server"
-  default     = "8.8.8.8"
+variable "vcenter_ceip_status" {
+ description = "vCenter server CEIP status"
 }
 
-variable "vcbuild_ipprefix" {
-  description = "Network prefix length (bits for subnet mask). Use only when the mode is 'static'."
-  default     = "24"
+variable "vcenter_fqdn" {
+ description = "vCenter server FQDN"
 }
 
-variable "vcbuild_gateway" {
-  description = "gateway"
-}
-
-variable "vcbuild_vcfqdn" {
-  description = "FQDN or IP address for the appliance."
-}
-
-variable "vcbuild_ceip_enabled" {
-  description = "Join VMware Customer Experience Program? 'true' or 'false' "
-  default     = false
+variable "binaries_path" {
+ description = "Path for the vCenter server deployment binaries"
 }

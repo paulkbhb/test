@@ -1,48 +1,37 @@
-################################################################################
-################################################################################
-################################################################################
-###                                                                          ###
-### Name: terraform-vsphere-vcsa                                             ###
-### Description: [Terraform] Module to create and deploy VMware VCSA         ###
-### Last Modified: fparry(2020-10-14T10:44:56-04:00)                         ###
-### License: MIT (See LICENSE.txt in the root of this repository for more    ###
-###   information.)                                                          ###
-###                                                                          ###
-################################################################################
-################################################################################
-################################################################################
-
 locals {
-  vctemplate_out = templatefile("${path.module}/template/vctemplate.json.tpl", {
-    esxihostname       = var.vcbuild_esxihostname
-    esxiusername       = var.vcbuild_esxiusername
-    esxipassword       = var.vcbuild_esxipassword
-    deployment_network = var.vcbuild_deployment_network
-    datastore          = var.vcbuild_datastore
-    thin_disk_mode     = var.vcbuild_thin_disk_mode
-    deployment_option  = var.vcbuild_deployment_option
-    vchostname         = var.vcbuild_vchostname
-    ip_family          = var.vcbuild_ip_family
-    network_mode       = var.vcbuild_network_mode
-    vcrootpassword     = var.vcbuild_vcrootpassword
-    vcssopassword      = var.vcbuild_vcssopassword
-    ntp_servers        = var.vcbuild_ntp_servers
-    ssh_enable         = var.vcbuild_ssh_enable
-    sso_domain_name    = var.vcbuild_sso_domain_name
-    vcfqdn             = var.vcbuild_vcfqdn
-    vcipaddress        = var.vcbuild_vcip
-    dnsserver          = var.vcbuild_dnsserver
-    ipprefix           = var.vcbuild_ipprefix
-    gateway            = var.vcbuild_gateway
-    ceip_enabled       = var.vcbuild_ceip_enabled
+  binaries_path = var.binaries_path
+  vcsa_template = templatefile("${path.module}/vcsa-esxi.json.tmpl", {
+    esxi_hostname         = var.esxi_hostname
+    esxi_username         = var.esxi_username
+    esxi_password         = var.esxi_password
+    vcsa_network          = var.vcsa_network
+    vcsa_datastore        = var.vcsa_datastore
+    disk_mode             = var.disk_mode
+    deployment_size       = var.deployment_size
+    vcenter_hostname      = var.vcenter_hostname
+    ip_family             = var.ip_family
+    network_mode          = var.network_mode
+    vcenter_fqdn          = var.vcenter_fqdn
+    vcenter_ip            = var.vcenter_ip
+    vcenter_prefix        = var.vcenter_prefix
+    vcenter_gateway       = var.vcenter_gateway
+    vcenter_dns           = var.vcenter_dns
+    vcenter_root_password = var.vcenter_root_password
+    vcenter_ntp_server    = var.vcenter_ntp_server
+    vcenter_ssh_enabled   = var.vcenter_ssh_enabled
+    vcenter_sso_password  = var.vcenter_sso_password
+    vcenter_sso_domain    = var.vcenter_sso_domain
+    vcenter_ceip_status   = var.vcenter_ceip_status
   })
 }
-resource "local_file" "vcbuild_output" {
-  filename = "/home/runner/vctemplate.json"
-  content  = local.vctemplate_out
+
+resource "local_file" "vcsa_template_to_json" {
+  filename = "${local.binaries_path}/vcsa-esxi.json"
+  content  = local.vcsa_template
 }
-resource "null_resource" "vc" {
+
+resource "null_resource" "vcsa_deploy" {
   provisioner "local-exec" {
-    command = "/home/runner/vcenter/vcsa-cli-installer/lin64/vcsa-deploy install --accept-eula --acknowledge-ceip --no-ssl-certificate-verification --verbose /home/runner/vctemplate.json"
+    command = "${local.binaries_path}/vcsa-cli-installer/lin64/vcsa-deploy install --accept-eula --acknowledge-ceip --no-ssl-certificate-verification /binaries/vcsa/vcsa-esxi.json"
   }
 }
