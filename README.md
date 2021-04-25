@@ -9,7 +9,7 @@ The vCenter Server Appliance is a preconfigured Linux virtual machine, which is 
 This Module uses the [VMware VCSA](https://www.vmware.com/content/dam/digitalmarketing/vmware/en/pdf/products/vCenter/vmw-datasheetvcenter.pdf) as a deployment artifact.
 
 
-ssssssssssssssssss
+
 ## How do you use this Module?
 
 This repo has the following structure:
