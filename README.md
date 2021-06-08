@@ -19,7 +19,7 @@ module "deploy_vcenter" {
   for_each              = local.deploy_vcenter
   esxi_hostname         = each.value.esxi_hostname
   esxi_username         = each.value.esxi_username
-  esxi_password         = each.value.esxi_passwordd
+  esxi_password         = each.value.esxi_password
   vcsa_network          = each.value.vcsa_network
   vcsa_datastore        = each.value.vcsa_datastore
   disk_mode             = each.value.disk_mode
