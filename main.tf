@@ -32,6 +32,6 @@ resource "local_file" "vcsa_template_to_json" {
 
 resource "null_resource" "vcsa_deploy" {
   provisioner "local-exec" {
-    command = "${local.binaries_path}/vcsa-cli-installer/lin64/vcsa-deploy install --accept-eula --acknowledge-ceip --no-ssl-certificate-verification /binaries/vcsa/vcsa-esxi.json"
+    command = "${local.binaries_path}/vcsa-cli-installer/lin64/vcsa-deploy install --accept-eula --acknowledge-ceip --no-ssl-certificate-verification ${local.binaries_path}/vcsa-esxi.json"
   }
 }
