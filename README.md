@@ -2,9 +2,17 @@
 # Terraform vCenter
 
 This Terraform module creates and deploys a vCenter Server Appliance on an ESXi host. Additional template files are in the module folder if deploying to a vCenter is required. 
+
+
 ## Acknowledgements
 
  - [Based on a module by Riverpoint Technology](https://github.com/rptcloud/terraform-vsphere-vcsa)
+
+## To-do
+
+- [] Support deploying to vCenter via variable
+- [x] Add variable types
+
   ## Usage/Examples
 
 ```hcl
