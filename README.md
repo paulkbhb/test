@@ -53,9 +53,12 @@ Ensure that you modify the deploy_vcsa_on_vcenter.yaml or deploy_vcsa_on_esxi.ya
 ```yaml
 deploy_vcenter:
   vcsa01:
-    esxi_hostname: esxi2.bmrf.io
-    esxi_username: root
-    esxi_password: yourhostpassword
+    deploy_type: vc
+    vc_hostname: vc.bmrf.io
+    vc_username: administrator@vsphere.local
+    vc_password: VMware123!
+    vc_datacenter: Black Mesa
+    vc_cluster: Compute
     vcsa_network: Sector-B-VL21
     vcsa_datastore: ESXi2-SSD
     disk_mode: true
@@ -68,13 +71,14 @@ deploy_vcenter:
     vcenter_prefix: "24"
     vcenter_gateway: "172.16.21.1"
     vcenter_dns: "172.16.11.2"
-    vcenter_root_password: yourpassword
+    vcenter_root_password: VMware1!
     vcenter_ntp_server: time.bmrf.io
     vcenter_ssh_enabled: true
-    vcenter_sso_password: yourpassword
+    vcenter_sso_password: VMware1!
     vcenter_sso_domain: vsphere.local
     vcenter_ceip_status: false
     binaries_path: /binaries/vcsa
+
 ```
 
 ```bash
