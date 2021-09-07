@@ -61,12 +61,12 @@ variable "disk_mode" {
   type        = bool
 }
 
-variable "type" {
+variable "deploy_type" {
   description = "Type of deployment that will be performed - esxi or vc "
   type        = string
   default     = "esxi"
   validation {
-    condition     = var.type != "esxi" || var.type != "vc"
+    condition     = var.deploy_type != "esxi" || var.deploy_type != "vc"
     error_message = "The variable type must be \"esxi\" or \"vc\"."
   }
 }

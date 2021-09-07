@@ -84,3 +84,38 @@ deploy_vcenter:
 [MIT](https://choosealicense.com/licenses/mit/)
 
   
+
+<!-- BEGIN_TF_DOCS -->
+## Requirements
+
+No requirements.
+
+## Providers
+
+No providers.
+
+## Modules
+
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="module_deploy_vcenter"></a> [deploy\_vcenter](#module\_deploy\_vcenter) | github.com/kalenarndt/terraform-vsphere-vcsa | n/a |
+
+## Resources
+
+No resources.
+
+## Inputs
+
+No inputs.
+
+## Outputs
+
+| Name | Description |
+|------|-------------|
+| <a name="output_vcenter_fqdn"></a> [vcenter\_fqdn](#output\_vcenter\_fqdn) | vCenter FQDN |
+| <a name="output_vcenter_ip"></a> [vcenter\_ip](#output\_vcenter\_ip) | vCenter IP address |
+| <a name="output_vcenter_password"></a> [vcenter\_password](#output\_vcenter\_password) | SSO user password that was set during the vCenter provisioning |
+| <a name="output_vcenter_root_password"></a> [vcenter\_root\_password](#output\_vcenter\_root\_password) | Password for the local root user |
+| <a name="output_vcenter_root_user"></a> [vcenter\_root\_user](#output\_vcenter\_root\_user) | Username for the local root user |
+| <a name="output_vcenter_user"></a> [vcenter\_user](#output\_vcenter\_user) | SSO user that was created during the vCenter provisioning |
+<!-- END_TF_DOCS -->
