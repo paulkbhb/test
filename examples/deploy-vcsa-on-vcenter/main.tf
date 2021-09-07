@@ -5,7 +5,7 @@ locals {
 }
 
 module "deploy_vcenter" {
-  source                = "kalenarndt/vcsa-deploy/vsphere//examples/deploy-vcsa-on-vcenter"
+  source                = "kalenarndt/vcsa-deploy/vsphere"
   for_each              = local.deploy_vcenter
   type                  = each.value.deploy_type
   vc_datacenter         = each.value.vc_datacenter
