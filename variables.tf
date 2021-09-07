@@ -1,17 +1,48 @@
 variable "esxi_hostname" {
   description = "ESXi hostname of the target host"
   type        = string
+  default     = ""
+}
+variable "vc_hostname" {
+  description = "vCenter hostname of the target vCenter where the appliance will be deployed in"
+  type        = string
+  default     = ""
 }
 
 variable "esxi_username" {
   description = "Username for the account on the target ESXi host"
-  default     = "root"
   type        = string
+  default     = ""
+}
+
+variable "vc_username" {
+  description = "Username for the account on the target vCenter that will be used to deploy the appliance"
+  type        = string
+  default     = ""
 }
 
 variable "esxi_password" {
   description = "Password for the account on the target host"
   type        = string
+  default     = ""
+}
+
+variable "vc_password" {
+  description = "Password for the account on the target vCenter that will be used to deploy the appliance"
+  type        = string
+  default     = ""
+}
+
+variable "vc_datacenter" {
+  description = "Datacenter where the appliance will be deployed"
+  type        = string
+  default     = ""
+}
+
+variable "vc_cluster" {
+  description = "Cluster where the appliance will be deployed"
+  type        = string
+  default     = ""
 }
 
 variable "vcsa_network" {
@@ -30,6 +61,16 @@ variable "disk_mode" {
   type        = bool
 }
 
+variable "type" {
+  description = "Type of deployment that will be performed - esxi or vc "
+  type        = string
+  default     = "esxi"
+  validation {
+    condition     = var.type != "esxi" || var.type != "vc"
+    error_message = "The variable type must be \"esxi\" or \"vc\"."
+  }
+}
+
 variable "deployment_size" {
   default     = "tiny"
   description = "vCenter server deployment size"
@@ -43,7 +84,7 @@ variable "deployment_size" {
 variable "vcenter_prefix" {
   description = "vCenter server subnet prefix"
   default     = "24"
-  type = string
+  type        = string
 }
 
 variable "vcenter_hostname" {
@@ -108,8 +149,8 @@ variable "vcenter_sso_domain" {
 
 variable "vcenter_ceip_status" {
   description = "vCenter server CEIP status"
-  default = false
-  type = bool
+  default     = false
+  type        = bool
 }
 
 variable "vcenter_fqdn" {
@@ -117,7 +158,13 @@ variable "vcenter_fqdn" {
   type        = string
 }
 
+variable "windows" {
+  description = "Toggle for executing the windows binary for deploying the vcsa"
+  type        = bool
+  default     = false
+}
+
 variable "binaries_path" {
   description = "Path for the vCenter server deployment binaries"
-  type = string
+  type        = string
 }

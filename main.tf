@@ -1,10 +1,15 @@
 locals {
   binaries_path = var.binaries_path
-  vcsa_template = templatefile("${path.module}/vcsa-esxi.json.tmpl", {
+  vcsa_template = templatefile("${path.module}/vcsa-${var.type}.json.tmpl", {
     esxi_hostname         = var.esxi_hostname
+    vc_hostname           = var.vc_hostname
     esxi_username         = var.esxi_username
+    vc_username           = var.vc_username
     esxi_password         = var.esxi_password
+    vc_password           = var.vc_password
     vcsa_network          = var.vcsa_network
+    vc_datacenter         = var.vc_datacenter
+    vc_cluster            = var.vc_cluster
     vcsa_datastore        = var.vcsa_datastore
     disk_mode             = var.disk_mode
     deployment_size       = var.deployment_size
@@ -26,12 +31,20 @@ locals {
 }
 
 resource "local_file" "vcsa_template_to_json" {
-  filename = "${local.binaries_path}/vcsa-esxi.json"
+  filename = "${local.binaries_path}/vcsa-${var.type}.json"
   content  = local.vcsa_template
 }
 
-resource "null_resource" "vcsa_deploy" {
+resource "null_resource" "vcsa_linux_deploy" {
+  count = var.windows == false ? 1 : 0
   provisioner "local-exec" {
-    command = "${local.binaries_path}/vcsa-cli-installer/lin64/vcsa-deploy install --accept-eula --acknowledge-ceip --no-ssl-certificate-verification ${local.binaries_path}/vcsa-esxi.json"
+    command = "${local.binaries_path}/vcsa-cli-installer/lin64/vcsa-deploy install --accept-eula --acknowledge-ceip --no-ssl-certificate-verification ${local.binaries_path}/vcsa-${var.type}.json"
+  }
+}
+
+resource "null_resource" "vcsa_windows_deploy" {
+  count = var.windows == true ? 1 : 0
+  provisioner "local-exec" {
+    command = "${local.binaries_path}/vcsa-cli-installer/win32/vcsa-deploy.exe install --accept-eula --acknowledge-ceip --no-ssl-certificate-verification ${local.binaries_path}/vcsa-${var.type}.json"
   }
 }
