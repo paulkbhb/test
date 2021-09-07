@@ -7,7 +7,7 @@ locals {
 module "deploy_vcenter" {
   source                = "github.com/kalenarndt/terraform-vsphere-vcsa"
   for_each              = local.deploy_vcenter
-  type                  = "esxi"
+  type                  = each.value.deploy_type
   esxi_hostname         = each.value.esxi_hostname
   esxi_username         = each.value.esxi_username
   esxi_password         = each.value.esxi_password

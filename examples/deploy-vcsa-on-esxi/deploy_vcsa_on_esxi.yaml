@@ -1,5 +1,6 @@
 deploy_vcenter:
   vcsa01:
+    deploy_type: esxi
     esxi_hostname: esxi2.bmrf.io
     esxi_username: root
     esxi_password: VMware123!

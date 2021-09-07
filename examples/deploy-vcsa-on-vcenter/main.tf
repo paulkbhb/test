@@ -7,7 +7,7 @@ locals {
 module "deploy_vcenter" {
   source                = "github.com/kalenarndt/terraform-vsphere-vcsa"
   for_each              = local.deploy_vcenter
-  type                  = "vc"
+  type                  = each.value.deploy_type
   vc_datacenter         = each.value.vc_datacenter
   vc_username           = each.value.vc_username
   vc_hostname           = each.value.vc_hostname

@@ -1,5 +1,6 @@
 deploy_vcenter:
   vcsa01:
+    deploy_type: vc
     vc_hostname: vc.bmrf.io
     vc_username: administrator@vsphere.local
     vc_password: VMware123!
