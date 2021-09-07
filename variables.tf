@@ -76,7 +76,7 @@ variable "deployment_size" {
   description = "vCenter server deployment size"
   validation {
     condition     = var.deployment_size != "tiny" || var.deployment_size != "small" || var.deployment_size != "medium" || var.deployment_size != "large" || var.deployment_size != "x-large"
-    error_message = "The variable hcp_tier must be \"tiny\", \"small\", \"medium\", \"large\", or \"x-large\"."
+    error_message = "The variable deployment_size must be \"tiny\", \"small\", \"medium\", \"large\", or \"x-large\"."
   }
   type = string
 }
@@ -132,6 +132,7 @@ variable "vcenter_ntp_server" {
 
 variable "vcenter_ssh_enabled" {
   description = "vCenter SSH setting"
+  type        = bool
   default     = true
 }
 

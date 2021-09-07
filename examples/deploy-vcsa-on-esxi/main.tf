@@ -1,33 +1,19 @@
-locals {
-  # Deployment Details
-  infra_deploy   = yamldecode(file("${path.module}/deploy_vcsa_on_esxi.yaml"))
-  deploy_vcenter = local.infra_deploy.deploy_vcenter
-}
-
 module "deploy_vcenter" {
-  source                = "kalenarndt/vcsa-deploy/vsphere//examples/deploy-vcsa-on-vcenter"
-  for_each              = local.deploy_vcenter
-  type                  = each.value.deploy_type
-  esxi_hostname         = each.value.esxi_hostname
-  esxi_username         = each.value.esxi_username
-  esxi_password         = each.value.esxi_password
-  vcsa_network          = each.value.vcsa_network
-  vcsa_datastore        = each.value.vcsa_datastore
-  disk_mode             = each.value.disk_mode
-  deployment_size       = each.value.deployment_size
-  vcenter_hostname      = each.value.vcenter_hostname
-  ip_family             = each.value.ip_family
-  network_mode          = each.value.network_mode
-  vcenter_fqdn          = each.value.system_name
-  vcenter_ip            = each.value.vcenter_ip
-  vcenter_prefix        = each.value.vcenter_prefix
-  vcenter_gateway       = each.value.vcenter_gateway
-  vcenter_dns           = each.value.vcenter_dns
-  vcenter_root_password = each.value.vcenter_root_password
-  vcenter_ntp_server    = each.value.vcenter_ntp_server
-  vcenter_ssh_enabled   = each.value.vcenter_ssh_enabled
-  vcenter_sso_password  = each.value.vcenter_sso_password
-  vcenter_sso_domain    = each.value.vcenter_sso_domain
-  vcenter_ceip_status   = each.value.vcenter_ceip_status
-  binaries_path         = each.value.binaries_path
+  source                = "kalenarndt/vcsa-deploy/vsphere"
+  deploy_type           = "esxi"
+  esxi_hostname         = "esxi2.bmrf.io"
+  esxi_username         = "root"
+  esxi_password         = "VMware123!"
+  vcsa_network          = "Sector-B-VL21"
+  vcsa_datastore        = "ESXi2-SSD"
+  deployment_size       = "small"
+  vcenter_hostname      = "vc-sb.bmrf.io"
+  vcenter_fqdn          = "vc-sb.bmrf.io"
+  vcenter_ip            = "172.16.21.10"
+  vcenter_prefix        = "24"
+  vcenter_gateway       = "172.16.21.1"
+  vcenter_dns           = "172.16.11.2"
+  vcenter_root_password = "VMware123!"
+  vcenter_ntp_server    = "time.bmrf.io"
+  binaries_path         = "/binaries/vcsa"
 }

@@ -12,74 +12,31 @@ This Terraform module creates and deploys a vCenter Server Appliance on an ESXi 
   ## Usage/Examples
 
 ```hcl
-locals {
-  # Deployment Details
-  infra_deploy   = yamldecode(file("${path.module}/deploy_vcenter_on_vcenter.yaml"))
-  deploy_vcenter = local.infra_deploy.deploy_vcenter
-}
-
 module "deploy_vcenter" {
   source                = "kalenarndt/vcsa-deploy/vsphere"
-  for_each              = local.deploy_vcenter
-  deploy_type           = each.value.deploy_type
-  vc_datacenter         = each.value.vc_datacenter
-  vc_username           = each.value.vc_username
-  vc_hostname           = each.value.vc_hostname
-  vc_password           = each.value.vc_password
-  vc_cluster            = each.value.vc_cluster
-  vcsa_network          = each.value.vcsa_network
-  vcsa_datastore        = each.value.vcsa_datastore
-  disk_mode             = each.value.disk_mode
-  deployment_size       = each.value.deployment_size
-  vcenter_hostname      = each.value.vcenter_hostname
-  ip_family             = each.value.ip_family
-  network_mode          = each.value.network_mode
-  vcenter_fqdn          = each.value.system_name
-  vcenter_ip            = each.value.vcenter_ip
-  vcenter_prefix        = each.value.vcenter_prefix
-  vcenter_gateway       = each.value.vcenter_gateway
-  vcenter_dns           = each.value.vcenter_dns
-  vcenter_root_password = each.value.vcenter_root_password
-  vcenter_ntp_server    = each.value.vcenter_ntp_server
-  vcenter_ssh_enabled   = each.value.vcenter_ssh_enabled
-  vcenter_sso_password  = each.value.vcenter_sso_password
-  vcenter_sso_domain    = each.value.vcenter_sso_domain
-  vcenter_ceip_status   = each.value.vcenter_ceip_status
-  binaries_path         = each.value.binaries_path
+
+  deploy_type           = "vc"
+  vc_datacenter         = "Black Mesa"
+  vc_username           = "administrator@vsphere.local"
+  vc_hostname           = "vc.bmrf.io"
+  vc_password           = "VMware123!"
+  vc_cluster            = "Compute"
+  vcsa_network          = "Sector-B-VL21"
+  vcsa_datastore        = "ESXi2-SSD"
+  deployment_size       = "small"
+  vcenter_hostname      = "vc-sb.bmrf.io"
+  vcenter_fqdn          = "vc-sb.bmrf.io"
+  vcenter_ip            = "172.16.21.10"
+  vcenter_prefix        = "24"
+  vcenter_gateway       = "172.16.21.1"
+  vcenter_dns           = "172.16.11.2"
+  vcenter_root_password = "VMware123!"
+  vcenter_ntp_server    = "time.bmrf.io"
+  binaries_path         = "/binaries/vcsa"
 }
 ```
-Ensure that you modify the deploy_vcsa_on_vcenter.yaml or deploy_vcsa_on_esxi.yaml file to match the details of your environment.  These files are located under the examples folders.
+Ensure that you modify the block to what you want and override defaults where required.
 
-```yaml
-deploy_vcenter:
-  vcsa01:
-    deploy_type: vc
-    vc_hostname: vc.bmrf.io
-    vc_username: administrator@vsphere.local
-    vc_password: VMware123!
-    vc_datacenter: Black Mesa
-    vc_cluster: Compute
-    vcsa_network: Sector-B-VL21
-    vcsa_datastore: ESXi2-SSD
-    disk_mode: true
-    deployment_size: small
-    vcenter_hostname: vc-sb.bmrf.io
-    ip_family: ipv4
-    network_mode: static
-    system_name: vc-sb.bmrf.io
-    vcenter_ip: "172.16.21.10"
-    vcenter_prefix: "24"
-    vcenter_gateway: "172.16.21.1"
-    vcenter_dns: "172.16.11.2"
-    vcenter_root_password: VMware1!
-    vcenter_ntp_server: time.bmrf.io
-    vcenter_ssh_enabled: true
-    vcenter_sso_password: VMware1!
-    vcenter_sso_domain: vsphere.local
-    vcenter_ceip_status: false
-    binaries_path: /binaries/vcsa
-
-```
 
 ```bash
 terraform init
