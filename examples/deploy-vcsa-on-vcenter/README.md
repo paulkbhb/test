@@ -19,7 +19,7 @@ locals {
 }
 
 module "deploy_vcenter" {
-  source                = "github.com/kalenarndt/terraform-vsphere-vcsa"
+  source                = "github.com/kalenarndt/terraform-vsphere-vcsa-deploy"
   for_each              = local.deploy_vcenter
   deploy_type           = each.value.deploy_type
   vc_datacenter         = each.value.vc_datacenter
