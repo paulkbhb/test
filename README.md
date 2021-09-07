@@ -90,6 +90,16 @@ terraform apply
 
 binaries_path is where you have the contents of your vcsa iso extracted to. This should be local to where Terraform is executed or a mapped mount / drive
 
+Outputs will require references to the map when using them. The name of the map above is "vcsa01" and if you are referencing it's values in the output you need to specify this or you wil get errors. An example output file has been supplied for you.
+
+### Example:
+
+```hcl
+output {
+  value = module.deploy_vcenter["vcsa01"].vcenter_ip
+}
+```
+
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
